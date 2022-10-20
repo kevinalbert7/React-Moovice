@@ -30,11 +30,13 @@ export class PopularBattle extends Component {
         storage: clonedStorage
       })
 
-      localStorage.setItem("favorites", JSON.stringify("favorites", clonedStorage))
+      localStorage.setItem("favorites", JSON.stringify(clonedStorage))
     }
 
     render() {
     const { currentBattle, movies } = this.state
+
+    console.log("storage =>", this.state.storage)
 
     return (
       <div className='container text-center'>

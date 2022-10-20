@@ -18,9 +18,7 @@ export class Popular extends Component {
         .catch(error => console.error(error))
     }
     
-  render() {
-    console.log(this.state.movies)
-    
+  render() {    
     return (
       <div className='container text-center py-5'>
         <h1 className='mb-5'>Popular</h1>
