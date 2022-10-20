@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 
 export class Card extends Component {
   render() {
-    const { image, releaseDate, title, overview } = this.props
+    const { image, releaseDate, title, overview, onClick } = this.props
 
     return (
       <>
-        <div style={{ 
+        <div 
+          style={{ 
             width: "300px", 
             height: "25rem", 
             boxShadow: "10px 10px 5px 0px rgba(0,0,0,0.75)", 
             border: "1px solid rgba(0, 0, 0, 0.7)",
             borderRadius: "5px",
             padding: 0
-            }}
+          }}
+          onClick={onClick}
+
           >
           <div 
             style={{

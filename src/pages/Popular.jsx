@@ -22,8 +22,8 @@ export class Popular extends Component {
     console.log(this.state.movies)
     
     return (
-      <div className='container text-center'>
-        <h1 className='m-4'>Popular</h1>
+      <div className='container text-center py-5'>
+        <h1 className='mb-5'>Popular</h1>
         <div className='row gap-3 d-flex justify-content-center'>
           {this.state.movies.map(movie => 
             <Card

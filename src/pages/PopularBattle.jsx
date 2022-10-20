@@ -8,8 +8,11 @@ export class PopularBattle extends Component {
 
       this.state = {
           movies: [],
-          currentBattle: 0
+          currentBattle: 0,
+          storage: []
       }
+
+      this.addFilm =this.addFilm.bind(this)
     }
 
     componentDidMount() {
@@ -18,24 +21,54 @@ export class PopularBattle extends Component {
         .then(data => this.setState({ movies: data.results }))
         .catch(error => console.error(error))
     }
-    
+
+    addFilm(currentBattle, id) {
+      const clonedStorage = [...this.state.storage, id]
+
+      this.setState({ 
+        currentBattle: currentBattle + 2,
+        storage: clonedStorage
+      })
+
+      localStorage.setItem("favorites", JSON.stringify("favorites", clonedStorage))
+    }
+
     render() {
-    const slicedArray = this.state.movies.slice(0, 2)
+    const { currentBattle, movies } = this.state
 
     return (
       <div className='container text-center'>
         <h1 className='m-4'>Popular Battle</h1>
-        <div className='row gap-3 d-flex justify-content-center'>
-          {slicedArray.map(movie => 
-            <Card
-              key={movie.id} 
-              image={movie.poster_path}
-              title={movie.title} 
-              releaseDate={movie.release_date}
-              overview={movie.overview}
-            />
-          )}
-        </div>
+        {currentBattle === 18 ? (
+          <>
+            Vous avez parcouru tous les films !
+          </>
+        ) : (
+          <>
+            <div className='row gap-3 d-flex justify-content-center'>
+              {movies.length !== 0 && 
+                <>
+                  <Card
+                    key={movies[currentBattle].id} 
+                    image={movies[currentBattle].poster_path}
+                    title={movies[currentBattle].title} 
+                    releaseDate={movies[currentBattle].release_date}
+                    overview={movies[currentBattle].overview}
+                    onClick={() => this.addFilm(currentBattle, movies[currentBattle].id)}
+                  />
+                  <Card
+                    key={movies[currentBattle +1].id} 
+                    image={movies[currentBattle  + 1].poster_path}
+                    title={movies[currentBattle  + 1].title} 
+                    releaseDate={movies[currentBattle  + 1].release_date}
+                    overview={movies[currentBattle  + 1].overview}
+                    onClick={() => this.addFilm(currentBattle, movies[currentBattle].id)}
+                  />
+                </>
+              }
+            </div>
+          </>
+        )}
       </div>
     )
   }
